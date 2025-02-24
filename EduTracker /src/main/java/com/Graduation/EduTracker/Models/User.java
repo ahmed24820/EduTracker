@@ -1,10 +1,7 @@
 package com.Graduation.EduTracker.Models;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,7 +14,8 @@ import java.util.List;
 @Table(name = "users")
 @Setter
 @Getter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +23,9 @@ public class User implements UserDetails {
     private long id;
     private String firstname;
     private String lastname;
-    @Column(nullable = false , name = "Email")
+    @Column(nullable = false)
     private String username;
-    @Column(nullable = false )
+    @Column(nullable = false)
     private String password;
     private String phoneNumber;
     private boolean active;
@@ -38,7 +36,7 @@ public class User implements UserDetails {
             joinColumns = @JoinColumn(name = "User_id")
             , inverseJoinColumns = @JoinColumn(name = "Role_id")
     )
-    private List<Role> roles;
+    private List<Role> roles =new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,10 +45,6 @@ public class User implements UserDetails {
         return authorities;
     }
 
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
 
 
     // Attendance Relation

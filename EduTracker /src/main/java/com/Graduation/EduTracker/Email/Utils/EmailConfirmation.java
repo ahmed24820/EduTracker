@@ -19,8 +19,8 @@ public class EmailConfirmation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String token;
 
-    private String Token;
     // the user has only one confirmation mail in registration
     @OneToOne
     @JoinColumn(name = "User_id")
@@ -30,7 +30,7 @@ public class EmailConfirmation {
 
     public EmailConfirmation(User user){
         this.user = user;
-        this.Token = UUID.randomUUID().toString(); // generate an automatic random id
+        this.token = UUID.randomUUID().toString(); // generate an automatic random id
         this.date = LocalDate.now();
     }
 }

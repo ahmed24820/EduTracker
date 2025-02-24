@@ -2,6 +2,7 @@ package com.Graduation.EduTracker.Service.Source;
 
 import com.Graduation.EduTracker.Models.User;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserSource {
@@ -16,4 +17,5 @@ public interface UserSource {
 
     Optional<User> findById(long id);
 
+    List<User> getAllUsers();
 }

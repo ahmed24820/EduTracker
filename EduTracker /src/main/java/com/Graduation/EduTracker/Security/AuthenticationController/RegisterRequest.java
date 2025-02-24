@@ -7,15 +7,16 @@ import lombok.Getter;
 import lombok.Setter;
 
 
-@Builder
+
 @Setter
 @Getter
 @AllArgsConstructor
+@Builder
 public class RegisterRequest {
     private String firstname;
-    private String lastname;
+    private String Lastname;
     private String username;
-    private String password;
+    private String Password;
     private String phoneNumber;
     private String role;
 
@@ -23,4 +24,12 @@ public class RegisterRequest {
     public RegisterRequest() {
 
     }
+
+    public String getfirstname() {
+        return firstname;
+    }
+    public String getusername(){
+        return username;
+    }
+
 }

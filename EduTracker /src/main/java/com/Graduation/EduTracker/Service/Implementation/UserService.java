@@ -6,6 +6,7 @@ import com.Graduation.EduTracker.Service.Source.UserSource;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 @Service
 @RequiredArgsConstructor
@@ -36,11 +37,16 @@ public class UserService implements UserSource {
 
     @Override
     public Optional<User> findByUserName(String userName) {
-        return userRepo.findByUserName(userName);
+        return userRepo.findByUsername(userName);
     }
 
     @Override
     public Optional<User> findById(long id) {
         return userRepo.findById(id);
+    }
+
+    @Override
+    public List<User> getAllUsers() {
+        return userRepo.findAll();
     }
 }

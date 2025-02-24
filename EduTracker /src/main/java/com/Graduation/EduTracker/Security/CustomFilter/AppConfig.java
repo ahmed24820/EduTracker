@@ -21,7 +21,7 @@ public class AppConfig {
 
    @Bean
     public UserDetailsService userDetailsService(){
-        return username -> userRepo.findByUserName(username)
+        return username -> userRepo.findByUsername(username)
                 .orElseThrow(()-> new UsernameNotFoundException("user can not be found"));
     }
 

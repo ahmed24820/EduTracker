@@ -39,17 +39,17 @@ public class AuthService {
     private final EmailService emailService;
 
 
-    public ResponseEntity<?> register(RegisterRequest registerRequest) throws Exception {
-        Optional <User> optional = userRepo.findByUserName(registerRequest.getUsername());
+     public ResponseEntity<?> register(RegisterRequest registerRequest) throws Exception {
+        Optional <User> optional = userRepo.findByUsername(registerRequest.getusername());
          if (optional.isPresent()){
              throw new Exception("user already exists");
          }
          else {
          var user = User.builder()
-                 .firstname(registerRequest.getFirstname())
+                 .firstname(registerRequest.getfirstname())
                  .lastname(registerRequest.getLastname())
                  .password(bCryptPasswordEncoder.encode(registerRequest.getPassword()))
-                 .username(registerRequest.getUsername())
+                 .username(registerRequest.getusername())
                  .phoneNumber(registerRequest.getPhoneNumber())
 //                 .roles(List.of(repo.findByName(RoleEnum.valueOf(registerRequest.getRole())).orElseThrow()))
                  .build();
@@ -71,7 +71,7 @@ public class AuthService {
                         request.getEmail(),
                         request.getPassword()
                 ));
-        User user=userRepo.findByUserName(request.getEmail())
+        User user=userRepo.findByUsername(request.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("not found"));
         var generatedToken=jwTservice.GenerateToken(user);
         var refresh_token = jwTservice.Create_Refresh_Token(user);
@@ -95,7 +95,7 @@ public class AuthService {
         refresh_token=requestHeader.substring(7);
         username=jwTservice.ExtractUsername(refresh_token);
         if (username != null) {
-            UserDetails userDetails = this.userRepo.findByUserName(username).orElseThrow();
+            UserDetails userDetails = this.userRepo.findByUsername(username).orElseThrow();
             if (jwTservice.valid(refresh_token, userDetails)) {
                 var access = jwTservice.GenerateToken(userDetails);
                 var auth_response = AuthenticationResponse.builder()
@@ -108,7 +108,7 @@ public class AuthService {
       }
       public String Active_Account(String token){
         EmailConfirmation confirmationToken = emailRepo.findByToken(token).orElseThrow();
-       User user = userRepo.findByUserName(confirmationToken.getUser().getUsername()).orElseThrow();
+       User user = userRepo.findByUsername(confirmationToken.getUser().getUsername()).orElseThrow();
        user.setActive(true);
        userRepo.save(user);
        return "congrats " + user.getFirstname() + "\t u have been be an active member now ";

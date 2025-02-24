@@ -8,6 +8,6 @@ import java.nio.file.LinkOption;
 import java.util.Optional;
 
 @Repository
-public interface EmailRepo extends JpaRepository<EmailConfirmation , Long> {
+public interface EmailRepo extends JpaRepository<EmailConfirmation ,Long> {
   Optional<EmailConfirmation> findByToken(String token);
 }
