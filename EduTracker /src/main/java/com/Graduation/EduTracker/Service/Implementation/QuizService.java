@@ -1,7 +1,6 @@
 package com.Graduation.EduTracker.Service.Implementation;
 
 import com.Graduation.EduTracker.Models.Quiz;
-import com.Graduation.EduTracker.Models.Role;
 import com.Graduation.EduTracker.Models.RoleEnum;
 import com.Graduation.EduTracker.Models.User;
 import com.Graduation.EduTracker.Repos.QuizRepo;
