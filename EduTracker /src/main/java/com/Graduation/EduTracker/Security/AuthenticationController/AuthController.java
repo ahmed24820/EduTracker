@@ -15,10 +15,8 @@ import java.io.IOException;
 @RequestMapping("api/v1/auth")
 @RequiredArgsConstructor
 public class AuthController {
-      public AuthController(AuthService authService){
-          this.Authservice = authService;
-      }
-    private  AuthService Authservice;
+
+    private final AuthService Authservice;
 
     @PostMapping("/register")
     public ResponseEntity<?> register(

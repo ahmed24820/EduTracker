@@ -46,10 +46,4 @@ public class User implements UserDetails {
     }
 
 
-
-    // Attendance Relation
-
-//    @JoinColumn(name = "Attendance-value")
-//    private Attendance Attendances;
-
 }

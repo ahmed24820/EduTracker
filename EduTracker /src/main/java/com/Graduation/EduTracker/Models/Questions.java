@@ -5,21 +5,20 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.util.List;
 
-@Table
 @Entity
-@Getter
+@Table
 @Setter
+@Getter
 @RequiredArgsConstructor
-public class Attendance {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class Questions {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @OneToMany
-    private List<User> Users;
-    private LocalDate date;
+    private String QuestionName;
     @Enumerated(EnumType.STRING)
-    private AttendanceStatue statue;
+    private Q_type type;
+    @OneToMany
+    private List<Answer> answers;
 }
