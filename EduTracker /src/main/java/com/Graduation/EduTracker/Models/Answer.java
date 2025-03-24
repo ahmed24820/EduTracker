@@ -17,6 +17,7 @@ public class Answer {
     private String name;
     private boolean isCorrect;
     @ManyToOne
-    private Questions questions;
+    @JoinColumn(name = "Question_id")
+    private Question question;
 
 }

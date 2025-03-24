@@ -1,6 +1,5 @@
 package com.Graduation.EduTracker.controller;
 
-import com.Graduation.EduTracker.Models.User;
 import com.Graduation.EduTracker.Service.Implementation.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("api/v1/user")
 @RequiredArgsConstructor
-public class UserApi {
+public class UserResources {
 
     private final UserService userService;
 

@@ -16,8 +16,9 @@ public class Quiz {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER)
-    private List<Questions> Questions;
+    private String title;
+    private String Description;
+    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER , mappedBy = "quiz" ,orphanRemoval = true)
+    private List<Question> Question;
     private String MadeBy;
 }

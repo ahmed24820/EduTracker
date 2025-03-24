@@ -35,7 +35,7 @@ public class RoleService implements ApplicationListener<ContextRefreshedEvent> {
 
             optionalRole.ifPresentOrElse(System.out::println , () -> {
                 Role RoleToCreate = new Role();
-                RoleToCreate.setRoleName(role);
+                RoleToCreate.setName(role);
                 RoleToCreate.setDescription(RoleDescriptionMap.get(role));
 
                 repo.save(RoleToCreate);

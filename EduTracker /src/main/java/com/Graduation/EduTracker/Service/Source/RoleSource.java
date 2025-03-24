@@ -4,7 +4,7 @@ import com.Graduation.EduTracker.Models.Role;
 
 import java.util.Optional;
 
-public interface RoleService {
+public interface RoleSource {
 
     Optional<Role> saveRole (Role role);
     Optional<Role> findById (long id);

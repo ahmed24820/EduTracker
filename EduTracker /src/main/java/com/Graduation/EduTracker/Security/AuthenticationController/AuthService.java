@@ -1,9 +1,7 @@
 package com.Graduation.EduTracker.Security.AuthenticationController;
 
 
-import com.Graduation.EduTracker.Email.Repo.EmailRepo;
-import com.Graduation.EduTracker.Email.Service.EmailService;
-import com.Graduation.EduTracker.Email.Utils.EmailConfirmation;
+import com.Graduation.EduTracker.Models.RoleEnum;
 import com.Graduation.EduTracker.Models.User;
 import com.Graduation.EduTracker.Repos.RoleRepo;
 import com.Graduation.EduTracker.Repos.UserRepo;
@@ -14,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,6 +22,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @Log4j2
@@ -35,8 +35,6 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final RoleRepo repo;
 
-    private final EmailRepo emailRepo;
-    private final EmailService emailService;
 
 
      public ResponseEntity<?> register(RegisterRequest registerRequest) throws Exception {
@@ -51,19 +49,12 @@ public class AuthService {
                  .password(bCryptPasswordEncoder.encode(registerRequest.getPassword()))
                  .username(registerRequest.getusername())
                  .phoneNumber(registerRequest.getPhoneNumber())
-//                 .roles(List.of(repo.findByName(RoleEnum.valueOf(registerRequest.getRole())).orElseThrow()))
+                 .roles(List.of(repo.findByName(RoleEnum.valueOf(registerRequest.getRole())).orElseThrow()))
+                 .active(true)
                  .build();
-            user.setActive(false);
-            userRepo.save(user);
-
-             EmailConfirmation confirmation = new EmailConfirmation(user);
-             emailRepo.save(confirmation);
-
-            emailService.SendConfirmationEmail(user.getFirstname(),user.getUsername(),confirmation.getToken());
-
-             return ResponseEntity.ok("Verify email by the link sent on your email address");
-    }
-    }
+            return new ResponseEntity<>(userRepo.save(user), HttpStatus.CREATED);
+            }
+        }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request)  {
         authenticationManager.authenticate(
@@ -106,12 +97,5 @@ public class AuthService {
             }
         }
       }
-      public String Active_Account(String token){
-        EmailConfirmation confirmationToken = emailRepo.findByToken(token).orElseThrow();
-       User user = userRepo.findByUsername(confirmationToken.getUser().getUsername()).orElseThrow();
-       user.setActive(true);
-       userRepo.save(user);
-       return "congrats " + user.getFirstname() + "\t u have been be an active member now ";
-    }
 
        }

@@ -12,10 +12,14 @@ import java.util.List;
 @Setter
 @Getter
 @RequiredArgsConstructor
-public class Questions {
+public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
+    @ManyToOne
+    @JoinColumn(name = "quiz_id" , nullable = false)
+    private Quiz quiz;
     private String QuestionName;
     @Enumerated(EnumType.STRING)
     private Q_type type;

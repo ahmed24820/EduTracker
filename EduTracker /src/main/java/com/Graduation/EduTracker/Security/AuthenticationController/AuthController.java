@@ -34,9 +34,6 @@ public class AuthController {
     public void refresh_token(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Authservice.refresh_token(request,response);
     }
-    @GetMapping
-    public ResponseEntity<?>ActiveAccount(@RequestParam("token") String token){
-      return ResponseEntity.ok(Authservice.Active_Account(token));
-    }
+
 
 }
