@@ -1,5 +1,8 @@
 package com.Graduation.EduTracker.Models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -17,8 +20,11 @@ public class Quiz {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String title;
-    private String Description;
-    @OneToMany(cascade = CascadeType.ALL , fetch = FetchType.EAGER , mappedBy = "quiz" ,orphanRemoval = true)
-    private List<Question> Question;
+    private String description;
+    @JsonBackReference
+    @JsonProperty
+    @OneToMany(cascade = CascadeType.DETACH , fetch = FetchType.EAGER , mappedBy = "quiz" ,orphanRemoval = true)
+    @JsonFormat(with = JsonFormat.Feature.ACCEPT_SINGLE_VALUE_AS_ARRAY)
+    private List<Question> questions;
     private String MadeBy;
 }

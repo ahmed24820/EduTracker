@@ -32,8 +32,8 @@ public class QuizResources {
     }
 
     @PostMapping
-    public ResponseEntity<QuizDto> createQuiz(@RequestBody QuizDto QuizDto) {
-        QuizDto createdQuiz = quizService.createQuiz(QuizDto);
+    public ResponseEntity<QuizDto> createQuiz(@RequestBody Quiz Quiz) {
+        QuizDto createdQuiz = quizService.createQuiz(Quiz);
         return new ResponseEntity<>(createdQuiz, HttpStatus.CREATED);
     }
 
